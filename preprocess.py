@@ -25,7 +25,7 @@ html_icon_fmt = """
             <span class='description'></span>
         </div>"""
 
-STYLE_REGEX = re.compile(r"\.(?P<name>[-.\w]+)\s*\{\s*fill\s*:\s*#(?P<fill>.+?);\s*opacity\s*:\s*(?P<opacity>.*?);(?P<remain>.*?)\}")
+STYLE_REGEX = re.compile(r"\.(?P<class>[-.\w]+)\s*{(?P<content>.+?)}")
 
 xml.register_namespace("", "http://www.w3.org/2000/svg")
 
@@ -90,6 +90,11 @@ class Preprocess:
         theme = self.config["theme"]
         svg_name = filename[:filename.rfind(".")]
         isOverride = (svg_name in theme["overrides"])
+        default_style: t.Dict[str, str] = {}
+        defs = svg.getroot().find("{http://www.w3.org/2000/svg}defs")
+        for style in defs.findall("{http://www.w3.org/2000/svg}style"):
+            for match in re.findall(r"\.([-.\w]+)\s*{(.+?)}", style.text):
+                default_style[match[0]] = match[1]
 
         def process_style(el: xml.Element):
             if "class" in el.attrib:
@@ -98,8 +103,10 @@ class Preprocess:
 
                 if isOverride and c in theme["overrides"][svg_name]:
                     el.attrib["style"] = theme['overrides'][svg_name][c]
-                else:
+                elif c in theme:
                     el.attrib["style"] = theme[c]
+                else:
+                    el.attrib["style"] = default_style[c]
 
             for child in el:
                 process_style(child)
@@ -167,3 +174,6 @@ class Preprocess:
         
         return outputs
 
+if __name__ == "__main__":
+    proc = Preprocess("config/config_dark.json")
+    proc.run()

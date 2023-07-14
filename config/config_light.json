@@ -13,12 +13,6 @@
         "untouchedsvg"
     ],
     "theme": {
-        "canvas"              : "fill: none; opacity: 0;",
-        "cls-1"               : "opacity:0.75;",
-        "cls-101"             : "fill:url(#radial-gradient);",
-        "cls-103"             : "fill:url(#linear-gradient);",
-        "cls-2"               : "opacity:0.75;",
-        "cls-3"               : "opacity:0.75;",
         "dark-green"          : "fill: #9ed29e; opacity: 1;",
         "dark-orange"         : "fill: #ffdb80; opacity: 1;",
         "dark-teal"           : "fill: #309d90; opacity: 1;",
@@ -52,9 +46,9 @@
         "white"               : "fill: #ffffff; opacity: 1;",
 
         "overrides": {
-            "CurrentInstructionPointer"       : { "white" : "opacity: 0" },
-            "CurrentInstructionPointerPaused" : { "white" : "opacity: 0" },
-            "CurrentInstructionPointerStopped": { "white" : "opacity: 0" },
+            "CurrentInstructionPointer"       : { "cls-1" : "opacity: 0" },
+            "CurrentInstructionPointerPaused" : { "cls-1" : "opacity: 0" },
+            "CurrentInstructionPointerStopped": { "cls-1" : "opacity: 0" },
 
             "StatusBarBuild1"                 : { "white" : "fill: #000000; opacity: 1;" },
             "StatusBarBuild2"                 : { "white" : "fill: #000000; opacity: 1;" },
