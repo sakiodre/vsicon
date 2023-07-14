@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title>vsicon | The icon font for Visual Studio</title>
 
+    <style id="style-theme" type="text/css">
+        :root {
+            --background-1: #ffffff;
+            --background-2: #e7e7e7;
+            --background-3: #a1a1a1;
+            --color: #000000;
+        }
+        *{
+            color: var(--color);
+        }
+    </style>
+
     <style type="text/css">
 
         html {
@@ -35,7 +47,11 @@
             margin: 0;
             padding: 10px 20px;
             text-align: center;
-            background-color: #f8f8f8;
+            background-color: var(--background-1);
+        }
+        
+        input{
+            background-color: var(--background-2);
         }
 
         h1 {
@@ -61,7 +77,7 @@
             display: inline-block;
             width: 100%;
             text-align: center;
-            background-color: white;
+            background-color: var(--background-2);
             box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
             border-radius: 4px;
             transition: all .3s ease-in-out;
@@ -144,12 +160,72 @@
 
     </style>
 
-    <link rel="stylesheet" type="text/css" href="vsicon.css" />
+    <link id="css-file" rel="stylesheet" type="text/css" href="vsicon.css" />
+    <script>
+        function SetTheme(mode = "dark"){
+            
+            var style = document.getElementById("style-theme").sheet.cssRules[0].style
+            if (mode == "dark"){
+                style.setProperty("--background-1", "#121212");
+                style.setProperty("--background-2", "#202020");
+                style.setProperty("--background-3", "#808080");
+                style.setProperty("--color", "#fafafa");
+            }
+            else
+            {
+                style.setProperty("--background-1", "#ffffff");
+                style.setProperty("--background-2", "#e7e7e7");
+                style.setProperty("--background-3", "#a1a1a1");
+                style.setProperty("--color", "#000000");
+            }
+
+            var link = document.getElementById("css-file");
+            if (mode == "dark")
+            {
+                link.setAttribute("href", "vsicon-dark.css");
+            }
+            else
+            {
+                link.setAttribute("href", "vsicon.css");
+            }
+        }
+        
+        currentTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? "dark" : "light";
+        SetTheme(currentTheme);
+    </script>
+    
+    <style>
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--background-2);
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-button:hover {
+            background-color: var(--background-3);;
+            cursor: pointer;
+        }
+
+        .floating-button i {
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
     <h1>vsicon</h1>
 
+    <div class="floating-button" onclick="currentTheme = (currentTheme == 'dark') ? 'light' : 'dark'; SetTheme(currentTheme);">
+        <i class="vsicon vsicon-DarkTheme" aria-hidden="true"></i>
+    </div>
     <input type="text" id="search" placeholder="Search for icon names">
 
     <div id="icons">

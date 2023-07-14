@@ -1,11 +1,11 @@
 @font-face {
-	font-family: "vsicon-dark";
+	font-family: "vsicon";
 	font-display: block;
-	src: url("./vsicon-dark.ttf") format("truetype");
+	src: url("./vsicon.ttf") format("truetype");
 }
 
 .vsicon[class*='vsicon-'] {
-	font: normal normal normal 16px/1 vsicon-dark;
+	font: normal normal normal 16px/1 vsicon;
 	display: inline-block;
 	text-decoration: none;
 	text-rendering: auto;
